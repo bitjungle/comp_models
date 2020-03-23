@@ -6,11 +6,10 @@ class SEIR_model:
     '''SEIR compartmental model for mathematical modelling of infectious disease.
 
     Source: https://www.nature.com/articles/s41421-020-0148-0#Sec6
-    Assumption: No new transmissions from animals, 
-    no differences in individual immunity, 
-    the time-scale of the epidemic is much faster than characteristic 
-    times for demographic processes (natural birth and death), 
-    and no differences in natural births and deaths.
+    Assumption: No new transmissions from animals, no differences in 
+    individual immunity, the time-scale of the epidemic is much faster 
+    than characteristic times for demographic processes (natural birth 
+    and death), and no differences in natural births and deaths.
     '''
     def __init__(self, S_start, E_start, I_start, R_start, N, R0, gamma, sigma):
         self._S = S_start
@@ -59,7 +58,7 @@ class SEIR_model:
         return prior + deriv * dt
     
     def update(self, dt):
-        '''Update S, I and R using time step dt'''
+        '''Update S, E, I and R using time step dt'''
         self._S = self._next_value(self._S, self._St(), dt)
         self._E = self._next_value(self._E, self._Et(), dt)
         self._I = self._next_value(self._I, self._It(), dt)
