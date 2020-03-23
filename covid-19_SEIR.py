@@ -21,21 +21,20 @@ I_start = 10 # Number of infectious at simulation start
 E_start = I_start * 10 # Number of infected at simulation start
 R_start = 0
 date_start = date(2020,2,24) # Monday after winter holiday in Norway
-date_gov_actions_1 = date(2020,3,12) # Goverment actions 
+date_gov_actions_1 = date(2020,3,12) # Government actions 
 date_gov_actions_1_days = (date_gov_actions_1 - date_start).days
 date_today = date.today()
 date_delta = (date_today - date_start).days
 use_gov_actions_1 = True
 
-R0_start =  3.0   # basic reproduction number
-R0_gov_action =  2.0   # basic reproduction number after gov. actions
-R0 =  R0_start    # basic reproduction number
-gamma = 1 / 18      # 1 / duration of infectiousness
-#beta = R0 * gamma  # smittefare (transmissibility * average rate of contact)
-sigma = 1/5.2 # the infection rate calculated by the inverse of the mean latent period
+R0_start =  3.0      # basic reproduction number at simulation start
+R0_gov_action =  2.0 # basic reproduction number after gov. actions
+R0 =  R0_start       # basic reproduction number
+gamma = 1 / 10       # 1 / duration of infectiousness
+sigma = 1/3.5 # the infection rate calculated by the inverse of the mean latent period
 
 # Time horizon and time step -------------------------------------------
-t_max = 365 # number of days to simulate
+t_max = 200 # number of days to simulate
 dt = 1      # time step in days
 num_iter = math.ceil(t_max/dt) # number of iterations in simulation
 
@@ -53,7 +52,8 @@ model = seir.SEIR_model(S[0], E[0], I[0], R[0], N, R0, gamma, sigma)
 
 # Simulation -----------------------------------------------------------
 for i in range(1, num_iter):
-    if use_gov_actions_1 and i > date_gov_actions_1_days: 
+    if use_gov_actions_1 and i == date_gov_actions_1_days: 
+        print("Changing R0 to {} after {} days".format(R0_gov_action, i))
         model.set_params(R0_gov_action)
     model.update(dt)
     S[i] = model.get_S()
@@ -61,7 +61,7 @@ for i in range(1, num_iter):
     I[i] = model.get_I()
     R[i] = model.get_R()
 
-print('Daily report:')
+print("Daily report for {}:".format(date_today))
 print("Susceptible: {:.0f} - Infected: {:.0f} - Infectious: {:.0f} - Recovered: {:.0f}"
       .format(S[date_delta], E[date_delta], I[date_delta], R[date_delta]))
 
