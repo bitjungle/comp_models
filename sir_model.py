@@ -4,6 +4,7 @@
 
 class SIR_model:
     '''SIR compartmental model for mathematical modelling of infectious disease.'''
+    '''Source: https://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology#The_SIR_model'''
     def __init__(self, S_start, I_start, R_start, N, R0, gamma):
         self._S = S_start
         self._I = I_start
@@ -12,11 +13,12 @@ class SIR_model:
         self.set_params(R0, gamma)
         self._time = 0
     
-    def set_params(self, R0, gamma):
+    def set_params(self, R0, gamma = None):
         '''Set/change the model parameters R0 and gamma'''
         '''Parameter beta is calculated'''
         self._R0 = R0
-        self._gamma = gamma
+        if gamma:
+            self._gamma = gamma
         self._calc_beta()
 
     def _calc_beta(self):
@@ -24,15 +26,15 @@ class SIR_model:
         self._beta = self._R0 * self._gamma
 
     def _St(self):
-        '''dS/dt - At risk of contracting the disease'''
+        '''dS/dt - Susceptible. At risk of contracting the disease'''
         return -self._beta * self._I * self._S / self._N 
 
     def _It(self):
-        '''dI/dt - Capable of transmitting the disease'''
+        '''dI/dt - Infectious. Capable of transmitting the disease'''
         return (self._beta * self._I * self._S / self._N) - self._gamma * self._I 
 
     def _Rt(self):
-        '''dR/dt - Recovered or dead from the disease'''
+        '''dR/dt - Removed. Recovered or dead from the disease'''
         return self._gamma * self._I 
 
     def _next_value(self, prior, deriv, dt):
@@ -55,7 +57,7 @@ class SIR_model:
         return self._I
 
     def get_R(self):
-        '''Return current value of R (recovered)'''
+        '''Return current value of R (removed)'''
         return self._R
     
     def get_SIR(self):
@@ -63,11 +65,11 @@ class SIR_model:
         return [self._S, self._I, self._R]
     
     def get_beta(self):
-        '''Doc here'''
+        '''Return current value of beta'''
         return self._beta
 
     def get_gamma(self):
-        '''Doc here'''
+        '''Return current value of gamma'''
         return self._gamma
 
     def get_time(self):
