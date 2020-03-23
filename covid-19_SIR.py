@@ -17,14 +17,11 @@ N = 55000    # Total population
 I_start = 10 # Number of infected at simulation start
 
 R0 =  2.28 # basic reproduction number (from source)
-#beta = 0.35  # smittefare (transmissibility * average rate of contact)
-#beta = 0.6  # smittefare (transmissibility * average rate of contact)
-gamma = 1 / 4.8      # 1 / duration of infectiousness
-#gamma = 1 / 12      # 1 / duration of infectiousness
+gamma = 1 / 10 # 1 / duration of infectiousness
 
 # Time horizon and time step -------------------------------------------
-t_max = 60 # Number of days for simulation
-dt = 1     # Time step in days
+t_max = 200 # Number of days for simulation
+dt = 1      # Time step in days
 num_iter = math.ceil(t_max/dt) # Number of iterations
 
 # Initializing lists for storing calculations --------------------------
