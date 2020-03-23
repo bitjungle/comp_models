@@ -3,8 +3,15 @@
 # See http://www.gnu.org/licenses/gpl-3.0.html 
 
 class SIR_model:
-    '''SIR compartmental model for mathematical modelling of infectious disease.'''
-    '''Source: https://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology#The_SIR_model'''
+    '''SIR compartmental model for mathematical modelling of infectious disease.
+
+    Source: https://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology#The_SIR_model
+    The model consists of three compartments: S for the number of susceptible, 
+    I for the number of infectious, and R for the number recovered (or immune) 
+    individuals. This model is reasonably predictive for infectious diseases 
+    which are transmitted from human to human, and where recovery confers 
+    lasting resistance, such as measles, mumps and rubella. 
+    '''
     def __init__(self, S_start, I_start, R_start, N, R0, gamma):
         self._S = S_start
         self._I = I_start
@@ -14,8 +21,7 @@ class SIR_model:
         self._time = 0
     
     def set_params(self, R0, gamma = None):
-        '''Set/change the model parameters R0 and gamma'''
-        '''Parameter beta is calculated'''
+        '''Set/change the model parameters R0 and gamma, beta is calculated'''
         self._R0 = R0
         if gamma:
             self._gamma = gamma

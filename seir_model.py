@@ -3,8 +3,15 @@
 # See http://www.gnu.org/licenses/gpl-3.0.html 
 
 class SEIR_model:
-    '''SIR compartmental model for mathematical modelling of infectious disease.'''
-    '''Source: https://www.nature.com/articles/s41421-020-0148-0#Sec6'''
+    '''SIR compartmental model for mathematical modelling of infectious disease.
+
+    Source: https://www.nature.com/articles/s41421-020-0148-0#Sec6
+    Assumption: No new transmissions from animals, 
+    no differences in individual immunity, 
+    the time-scale of the epidemic is much faster than characteristic 
+    times for demographic processes (natural birth and death), 
+    and no differences in natural births and deaths.
+    '''
     def __init__(self, S_start, E_start, I_start, R_start, N, R0, gamma, sigma):
         self._S = S_start
         self._E = E_start
@@ -15,8 +22,7 @@ class SEIR_model:
         self._time = 0
     
     def set_params(self, R0, gamma = None, sigma = None):
-        '''Set/change the model parameters R0 and gamma'''
-        '''Parameter beta is calculated'''
+        '''Set/change the model parameters R0 and gamma, beta is calculated'''
         self._R0 = R0
         if gamma:
             self._gamma = gamma
