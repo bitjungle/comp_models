@@ -31,27 +31,30 @@ diamond_princess = (1, NaN, NaN,  NaN, NaN, NaN, NaN, NaN, NaN, NaN,
                     NaN, 285, 355, 454, 542, 621, 634)
 days = [i for i in range(0, len(diamond_princess))]
 
-R0 =  9.5 # basic reproduction number
-gamma = 1 / 18 # 1 / duration of infectiousness
+R0 =  3.9 # basic reproduction number
+gamma = 1 / 10 # 1 / duration of infectiousness (from fitted SIR model)
 #beta = R0 * gamma  # smittefare (transmissibility * average rate of contact)
-sigma = 1/5.2 # the infection rate calculated by the inverse of the mean latent period
+sigma = 1/3.5 # infection rate, inverse of the mean latent period  (adjusted for data fitting)
 
 # Time horizon and time step -------------------------------------------
-t_max = 90 # antall dager som skal simuleres
-dt = 1     # tidssteg i dager
-num_iter = math.ceil(t_max/dt) # antall iterasjoner i simulering
+t_max = 90 # Number of days for simulation
+dt = 1     # Time step in days
+num_iter = math.ceil(t_max/dt) # Number of iterations
 
 # Initializing lists for storing calculations --------------------------
-S = np.zeros(num_iter) # Mottakelige
+S = np.zeros(num_iter) # Susceptible
 S[0] = N - E_start - I_start
-E = np.zeros(num_iter) # Smittede
+E = np.zeros(num_iter) # Exposed
 E[0] = E_start
-I = np.zeros(num_iter) # Smittsomme
+I = np.zeros(num_iter) # Infectious
 I[0] = I_start
-R = np.zeros(num_iter) # Tilfriskede
+R = np.zeros(num_iter) # Recovered or dead
 R[0] = R_start
 
 model = seir.SEIR_model(S[0], E[0], I[0], R[0], N, R0, gamma, sigma)
+
+cumul = np.zeros(num_iter) # cumulated number of illness cases
+cumul[0] = E_start + I_start
 
 # Simulering -----------------------------------------------------------
 for i in range(1, num_iter):
@@ -60,6 +63,7 @@ for i in range(1, num_iter):
     E[i] = model.get_E()
     I[i] = model.get_I()
     R[i] = model.get_R()
+    cumul[i] = E[i] + I[i] + R[i]
 
 beta = model.get_beta()
 
@@ -67,9 +71,10 @@ plt.title("Spread of corona virus on Diamond Princess (SEIR model)\n"
           + "$\\beta={:5.2f}$ $\\gamma={:5.2f}$  $\\sigma={:5.2f}$ $R_0={:5.2f}$"
           .format(beta, gamma, sigma, R0))
 plt.plot(S, label='Susceptible')
-plt.plot(E, label='Infected')
+plt.plot(E, label='Exposed')
 plt.plot(I, label='Infectious')
 plt.plot(R, label='Recovered')
+plt.plot(cumul, label='Cumulated')
 plt.scatter(days, diamond_princess)
 plt.grid()
 plt.xlabel('Days')

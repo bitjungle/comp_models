@@ -29,13 +29,11 @@ days = [i for i in range(0, len(diamond_princess))]
 N = 3700    # Total population
 I_start = 1 # Number of infected at simulation start
 
-R0 =  2.28 # basic reproduction number (from source)
-#beta = 0.6  # smittefare (transmissibility * average rate of contact)
-gamma = 1 / 4.8      # 1 / duration of infectiousness
-#gamma = beta / R0 # 1 / duration of infectiousness
+R0 =  3.9 # basic reproduction number (max reported value)
+gamma = 1 / 10  # 1 / duration of infectiousness (adjusted for data fitting)
 
 # Time horizon and time step -------------------------------------------
-t_max = 60 # Number of days for simulation
+t_max = 90 # Number of days for simulation
 dt = 1     # Time step in days
 num_iter = math.ceil(t_max/dt) # Number of iterations
 
