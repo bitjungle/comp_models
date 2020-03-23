@@ -3,7 +3,7 @@
 # See http://www.gnu.org/licenses/gpl-3.0.html 
 
 class SEIR_model:
-    '''SIR compartmental model for mathematical modelling of infectious disease.
+    '''SEIR compartmental model for mathematical modelling of infectious disease.
 
     Source: https://www.nature.com/articles/s41421-020-0148-0#Sec6
     Assumption: No new transmissions from animals, 
