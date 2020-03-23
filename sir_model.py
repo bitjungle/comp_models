@@ -21,7 +21,11 @@ class SIR_model:
         self._time = 0
     
     def set_params(self, R0, gamma = None):
-        '''Set/change the model parameters R0 and gamma, beta is calculated'''
+        '''Set/change the model parameters R0 and gamma, beta is calculated
+        
+        See https://en.wikipedia.org/wiki/Basic_reproduction_number 
+        for possible values of R0. Gamma is 1 / duration of infectiousness.
+        '''
         self._R0 = R0
         if gamma:
             self._gamma = gamma

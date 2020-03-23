@@ -20,8 +20,8 @@ N = 55000    # Total population
 I_start = 10 # Number of infectious at simulation start
 E_start = I_start * 10 # Number of infected at simulation start
 R_start = 0
-date_start = date(2020,2,24) # Mandag etter vinterferien
-date_gov_actions_1 = date(2020,3,12) # Regjeringa gjør tiltak
+date_start = date(2020,2,24) # Monday after winter holiday in Norway
+date_gov_actions_1 = date(2020,3,12) # Goverment actions 
 date_gov_actions_1_days = (date_gov_actions_1 - date_start).days
 date_today = date.today()
 date_delta = (date_today - date_start).days
@@ -35,18 +35,18 @@ gamma = 1 / 18      # 1 / duration of infectiousness
 sigma = 1/5.2 # the infection rate calculated by the inverse of the mean latent period
 
 # Time horizon and time step -------------------------------------------
-t_max = 365 # antall dager som skal simuleres
-dt = 1      # tidssteg i dager
-num_iter = math.ceil(t_max/dt) # antall iterasjoner i simulering
+t_max = 365 # number of days to simulate
+dt = 1      # time step in days
+num_iter = math.ceil(t_max/dt) # number of iterations in simulation
 
 # Initializing lists for storing calculations --------------------------
-S = np.zeros(num_iter) # Susceptible
+S = np.zeros(num_iter) # susceptible
 S[0] = N - E_start - I_start
-E = np.zeros(num_iter) # Infected
+E = np.zeros(num_iter) # exposed
 E[0] = E_start
-I = np.zeros(num_iter) # Infectious
+I = np.zeros(num_iter) # infectious
 I[0] = I_start
-R = np.zeros(num_iter) # Recovered or dead
+R = np.zeros(num_iter) # removed
 R[0] = R_start
 
 model = seir.SEIR_model(S[0], E[0], I[0], R[0], N, R0, gamma, sigma)
@@ -68,9 +68,9 @@ print("Susceptible: {:.0f} - Infected: {:.0f} - Infectious: {:.0f} - Recovered: 
 plt.title("Spread of corona virus (SEIR model), $N={:5.0f}$ \n $\\beta={:5.2f}$ $\\gamma={:5.2f}$ $\\sigma={:5.2f}$ $R_0={:5.2f}\\rightarrow{:5.2f}$"
           .format(N, model.get_beta(), gamma, sigma, R0_start, model.get_R0()))
 plt.plot(S, label='Susceptible')
-plt.plot(E, label='Infected')
+plt.plot(E, label='Exposed')
 plt.plot(I, label='Infectious')
-plt.plot(R, label='Recovered')
+plt.plot(R, label='Removed')
 plt.grid()
 plt.xlabel('Days')
 plt.ylabel('Number of people')

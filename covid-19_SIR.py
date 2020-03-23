@@ -28,11 +28,11 @@ dt = 1     # Time step in days
 num_iter = math.ceil(t_max/dt) # Number of iterations
 
 # Initializing lists for storing calculations --------------------------
-S = np.zeros(num_iter) # Mottakelige
+S = np.zeros(num_iter) # susceptible
 S[0] = N - I_start
-I = np.zeros(num_iter) # Infiserte
+I = np.zeros(num_iter) # infectious
 I[0] = I_start
-R = np.zeros(num_iter) # Tilfriskede
+R = np.zeros(num_iter) # removed
 R[0] = 0
 
 model = sir.SIR_model(S[0], I[0], R[0], N, R0, gamma)
@@ -50,7 +50,7 @@ plt.title("Spread of corona virus, $N={:5.0f}$\n SIR model, $\\beta={:5.2f}$ $\\
         .format(N, beta, gamma, R0))
 plt.plot(S, label='Susceptible')
 plt.plot(I, label='Infectious')
-plt.plot(R, label='Recovered')
+plt.plot(R, label='Removed')
 plt.grid()
 plt.xlabel('Days')
 plt.ylabel('Number of people')
