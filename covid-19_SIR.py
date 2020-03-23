@@ -13,9 +13,9 @@ import sir_model as sir
 # https://web.stanford.edu/~jhj1/teachingdocs/Jones-on-R0.pdf
 # https://www.fhi.no/contentassets/6555fa43c77e4d01b0d296abbc86bcad/notat-om-risiko-og-respons-2020-03-12.pdf
 
+# Constants and start parameters ---------------------------------------
 N = 55000    # Total population
 I_start = 10 # Number of infected at simulation start
-
 R0 =  2.28 # basic reproduction number (from source)
 gamma = 1 / 10 # 1 / duration of infectiousness
 

@@ -15,23 +15,24 @@ from datetime import date
 # https://web.stanford.edu/~jhj1/teachingdocs/Jones-on-R0.pdf
 # https://www.fhi.no/contentassets/6555fa43c77e4d01b0d296abbc86bcad/notat-om-risiko-og-respons-2020-03-12.pdf
 
-# Useful resources -----------------------------------------------------
+# Constants and start parameters ---------------------------------------
 N = 55000    # Total population
 I_start = 10 # Number of infectious at simulation start
 E_start = I_start * 10 # Number of infected at simulation start
 R_start = 0
+R0_start =  3.0      # basic reproduction number at simulation start
+R0 =  R0_start       # basic reproduction number
+gamma = 1 / 10       # 1 / duration of infectiousness
+sigma = 1/3.5 # the infection rate calculated by the inverse of the mean latent period
+
+# Significant dates and R0 changes -------------------------------------
 date_start = date(2020,2,24) # Monday after winter holiday in Norway
 date_gov_actions_1 = date(2020,3,12) # Government actions 
 date_gov_actions_1_days = (date_gov_actions_1 - date_start).days
 date_today = date.today()
 date_delta = (date_today - date_start).days
 use_gov_actions_1 = True
-
-R0_start =  3.0      # basic reproduction number at simulation start
 R0_gov_action =  2.0 # basic reproduction number after gov. actions
-R0 =  R0_start       # basic reproduction number
-gamma = 1 / 10       # 1 / duration of infectiousness
-sigma = 1/3.5 # the infection rate calculated by the inverse of the mean latent period
 
 # Time horizon and time step -------------------------------------------
 t_max = 200 # number of days to simulate
@@ -62,7 +63,7 @@ for i in range(1, num_iter):
     R[i] = model.get_R()
 
 print("Daily report for {}:".format(date_today))
-print("Susceptible: {:.0f} - Infected: {:.0f} - Infectious: {:.0f} - Recovered: {:.0f}"
+print("Susceptible: {:.0f} - Exposed: {:.0f} - Infectious: {:.0f} - Recovered: {:.0f}"
       .format(S[date_delta], E[date_delta], I[date_delta], R[date_delta]))
 
 plt.title("Spread of corona virus (SEIR model), $N={:5.0f}$ \n $\\beta={:5.2f}$ $\\gamma={:5.2f}$ $\\sigma={:5.2f}$ $R_0={:5.2f}\\rightarrow{:5.2f}$"
