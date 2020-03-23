@@ -16,20 +16,20 @@ NaN = float('nan') # Not a Number (used where no data is available)
 # https://web.stanford.edu/~jhj1/teachingdocs/Jones-on-R0.pdf
 # https://www.fhi.no/contentassets/6555fa43c77e4d01b0d296abbc86bcad/notat-om-risiko-og-respons-2020-03-12.pdf
 
-# Liste over syke på Diamond Princess fra 25. januar -------------------
-#                   25, 26,  27,   28,  29,  30,  31,   1,   2,   3, 
+# Confirmed cases on Diamond Princess from 25. january 2020 ------------
+# jan/feb          25, 26,  27,   28,  29,  30,  31,   1,   2,   3, 
 diamond_princess = (1, NaN, NaN,  NaN, NaN, NaN, NaN, NaN, NaN, NaN,
-#                     4,  5,   6,   7,   8,   9,  10,  11,  12,  13  
+# feb                 4,  5,   6,   7,   8,   9,  10,  11,  12,  13  
                     NaN, 10, 20, 61, 64, 70, 135, NaN, 174, 218,
-#                    14,  15,  15,  17,  18,  19,  20
+# feb                14,  15,  15,  17,  18,  19,  20
                     NaN, 285, 355, 454, 542, 621, 634)
 days = [i for i in range(0, len(diamond_princess))]
 
 # Parameters -----------------------------------------------------------
 N = 3700    # Total population
-I_start = 1 # Number of infected at simulation start
+I_start = 1 # Number of infected at start of simulation
 
-R0 =  3.9 # basic reproduction number (max reported value)
+R0 =  3.9 # basic reproduction number (max reported value from Wikipedia)
 gamma = 1 / 10  # 1 / duration of infectiousness (adjusted for data fitting)
 
 # Time horizon and time step -------------------------------------------

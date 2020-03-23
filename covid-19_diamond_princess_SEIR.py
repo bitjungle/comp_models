@@ -7,7 +7,7 @@ import math
 import matplotlib.pyplot as plt
 import seir_model as seir
 
-NaN = float('nan') # Not a Number (brukes der hvor jeg ikke har data)
+NaN = float('nan') # Not a Number (used where no data is available)
 
 # Useful resources -----------------------------------------------------
 # https://www.nature.com/articles/s41421-020-0148-0 
@@ -17,23 +17,22 @@ NaN = float('nan') # Not a Number (brukes der hvor jeg ikke har data)
 # https://web.stanford.edu/~jhj1/teachingdocs/Jones-on-R0.pdf
 
 # Parameters -----------------------------------------------------------
-N = 3700   # Total populasjon
-I_start = 1 # Antall smittsomme smittebærere ved starten av simuleringen
-E_start = I_start * 10 # Antall smittebærere ved starten av simuleringen
+N = 3700   # Total population
+I_start = 1 # Number of infected at start of simulation
+E_start = I_start * 10 # Number of ecxposed at start of simulation
 R_start = 0
 
-# Liste over syke på Diamond Princess fra 25. januar -------------------
-#                   25, 26,  27,   28,  29,  30,  31,   1,   2,   3, 
+# Confirmed cases on Diamond Princess from 25. january 2020 ------------
+# jan/feb          25, 26,  27,   28,  29,  30,  31,   1,   2,   3, 
 diamond_princess = (1, NaN, NaN,  NaN, NaN, NaN, NaN, NaN, NaN, NaN,
-#                     4,  5,   6,   7,   8,   9,  10,  11,  12,  13  
+# feb                 4,  5,   6,   7,   8,   9,  10,  11,  12,  13  
                     NaN, 10, 20, 61, 64, 70, 135, NaN, 174, 218,
-#                    14,  15,  15,  17,  18,  19,  20
+# feb                14,  15,  15,  17,  18,  19,  20
                     NaN, 285, 355, 454, 542, 621, 634)
 days = [i for i in range(0, len(diamond_princess))]
 
-R0 =  3.9 # basic reproduction number
+R0 =  3.9 # basic reproduction number (max reported value from Wikipedia)
 gamma = 1 / 10 # 1 / duration of infectiousness (from fitted SIR model)
-#beta = R0 * gamma  # smittefare (transmissibility * average rate of contact)
 sigma = 1/3.5 # infection rate, inverse of the mean latent period  (adjusted for data fitting)
 
 # Time horizon and time step -------------------------------------------
