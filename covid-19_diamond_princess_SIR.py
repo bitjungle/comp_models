@@ -12,6 +12,7 @@ NaN = float('nan') # Not a Number (used where no data is available)
 # Useful resources -----------------------------------------------------
 # https://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology
 # https://en.wikipedia.org/wiki/2020_coronavirus_outbreak_on_cruise_ships#Diamond_Princess
+# https://www.eurosurveillance.org/search?value1=diamond+princess&option1=fulltext
 # https://www.ncbi.nlm.nih.gov/m/pubmed/32097725/
 # https://web.stanford.edu/~jhj1/teachingdocs/Jones-on-R0.pdf
 # https://www.fhi.no/contentassets/6555fa43c77e4d01b0d296abbc86bcad/notat-om-risiko-og-respons-2020-03-12.pdf
@@ -29,8 +30,8 @@ days = [i for i in range(0, len(diamond_princess))]
 N = 3700    # Total population
 I_start = 1 # Number of infected at start of simulation
 
-R0 =  3.9 # basic reproduction number (max reported value from Wikipedia)
-gamma = 1 / 10  # 1 / duration of infectiousness (adjusted for data fitting)
+R0 =  5.1 # basic reproduction number (used for data fitting)
+gamma = 1 / 14  # 1 / duration of infectiousness
 beta = R0 * gamma
 
 # Time horizon and time step -------------------------------------------

@@ -12,6 +12,7 @@ NaN = float('nan') # Not a Number (used where no data is available)
 # Useful resources -----------------------------------------------------
 # https://www.nature.com/articles/s41421-020-0148-0 
 # https://en.wikipedia.org/wiki/2020_coronavirus_outbreak_on_cruise_ships#Diamond_Princess
+# https://www.eurosurveillance.org/search?value1=diamond+princess&option1=fulltext
 # https://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology
 # https://www.ncbi.nlm.nih.gov/m/pubmed/32097725/
 # https://web.stanford.edu/~jhj1/teachingdocs/Jones-on-R0.pdf
@@ -31,8 +32,8 @@ diamond_princess = (1, NaN, NaN,  NaN, NaN, NaN, NaN, NaN, NaN, NaN,
                     NaN, 285, 355, 454, 542, 621, 634)
 days = [i for i in range(0, len(diamond_princess))]
 
-R0 =  3.9 # basic reproduction number (max reported value from Wikipedia)
-gamma = 1 / 10 # 1 / duration of infectiousness (from fitted SIR model)
+R0 =  5.1 # basic reproduction number (from fitted SIR-model)
+gamma = 1 / 14 # 1 / duration of infectiousness
 sigma = 1/3.5 # infection rate, inverse of the mean latent period  (adjusted for data fitting)
 beta = R0 * gamma
 
