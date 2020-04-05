@@ -1,0 +1,17 @@
+﻿Date,Number of passengers and crew members on board,Number of disembarked passengers and crew members (cumulative),Number of tests,Number of tests (cumulative),Number of individuals testing positive,Number of individuals testing positive (cumulative),Number of symptomatic cases,Number of asymptomatic cases,Number of asymptomatic cases (cumulative)
+2020-02-05,3711,NA,31,31,10,10,NA,NA,NA
+2020-02-06,NA,NA,71,102,10,20,NA,NA,NA
+2020-02-07,NA,NA,171,273,41,61,NA,NA,NA
+2020-02-08,NA,NA,6,279,3,64,NA,NA,NA
+2020-02-09,NA,NA,57,336,6,70,NA,NA,NA
+2020-02-10,NA,NA,103,439,65,135,NA,NA,NA
+2020-02-11,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2020-02-12,NA,NA,53,492,39,174,NA,NA,NA
+2020-02-13,NA,NA,221,713,44,218,NA,NA,NA
+2020-02-14,3451,260,NA,NA,NA,NA,NA,NA,NA
+2020-02-15,NA,NA,217,930,67,285,29,38,73
+2020-02-16,NA,NA,289,1219,70,355,32,38,111
+2020-02-17,3183,528,504,1723,99,454,29,70,181
+2020-02-18,NA,NA,681,2404,88,542,23,65,246
+2020-02-19,NA,NA,607,3011,79,621,11,68,314
+2020-02-20,NA,NA,52,3063,13,634,7,6,320
