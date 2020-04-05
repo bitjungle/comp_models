@@ -12,52 +12,39 @@ class SIR_model:
     which are transmitted from human to human, and where recovery confers 
     lasting resistance, such as measles, mumps and rubella. 
     '''
-    def __init__(self, S_start, I_start, R_start, N, R0, gamma):
+    def __init__(self, S_start, I_start, R_start, beta, gamma, N=1):
         self._S = S_start
         self._I = I_start
         self._R = R_start
+        self._beta = beta
+        self._gamma = gamma
         self._N = N
-        self.set_params(R0, gamma)
         self._time = 0
-    
-    def set_params(self, R0, gamma = None):
-        '''Set/change the model parameters R0 and gamma, beta is calculated
-        
-        See https://en.wikipedia.org/wiki/Basic_reproduction_number 
-        for possible values of R0. Gamma is 1 / duration of infectiousness.
-        '''
-        self._R0 = R0
-        if gamma:
-            self._gamma = gamma
-        self._calc_beta()
-
-    def _calc_beta(self):
-        '''Calculate beta from R0 and gamma'''
-        self._beta = self._R0 * self._gamma
 
     def _St(self):
         '''dS/dt - Susceptible. At risk of contracting the disease'''
-        return -self._beta * self._I * self._S / self._N 
+        return -self._beta * self._I * self._S / self._N
 
     def _It(self):
         '''dI/dt - Infectious. Capable of transmitting the disease'''
-        return (self._beta * self._I * self._S / self._N) - self._gamma * self._I 
+        return self._beta * self._I * self._S / self._N - self._gamma * self._I
 
     def _Rt(self):
         '''dR/dt - Removed. Recovered or dead from the disease'''
-        return self._gamma * self._I 
+        return self._gamma * self._I
 
-    def _next_value(self, prior, deriv, dt):
-        '''Eulers metod'''
+    def _next(self, prior, deriv, dt):
+        '''Eulers metod for estimating the next value in the time series'''
         return prior + deriv * dt
-    
+
     def update(self, dt):
         '''Update S, I and R using time step dt'''
-        self._S = self._next_value(self._S, self._St(), dt)
-        self._I = self._next_value(self._I, self._It(), dt)
-        self._R = self._next_value(self._R, self._Rt(), dt)
+        print('S=', self._S)
+        self._S = self._next(self._S, self._St(), dt)
+        self._I = self._next(self._I, self._It(), dt)
+        self._R = self._next(self._R, self._Rt(), dt)
         self._time += dt
-    
+
     def get_S(self):
         '''Return current value of S (susceptible)'''
         return self._S
@@ -69,11 +56,11 @@ class SIR_model:
     def get_R(self):
         '''Return current value of R (removed)'''
         return self._R
-    
+
     def get_SIR(self):
         '''Return current values of S, I and R as a list'''
         return [self._S, self._I, self._R]
-    
+
     def get_beta(self):
         '''Return current value of beta'''
         return self._beta

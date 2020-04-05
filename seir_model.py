@@ -11,31 +11,17 @@ class SEIR_model:
     than characteristic times for demographic processes (natural birth 
     and death), and no differences in natural births and deaths.
     '''
-    def __init__(self, S_start, E_start, I_start, R_start, N, R0, gamma, sigma):
+    def __init__(self, S_start, E_start, I_start, R_start, beta, gamma, sigma, N=1):
         self._S = S_start
         self._E = E_start
         self._I = I_start
         self._R = R_start
+        self._beta = beta
+        self._gamma = gamma
+        self._sigma = sigma
         self._N = N
-        self.set_params(R0, gamma, sigma)
+        self._N = N
         self._time = 0
-    
-    def set_params(self, R0, gamma = None, sigma = None):
-        '''Set/change the model parameters R0 and gamma, beta is calculated
-        
-        See https://en.wikipedia.org/wiki/Basic_reproduction_number 
-        for possible values of R0.
-        '''
-        self._R0 = R0
-        if gamma:
-            self._gamma = gamma
-        if sigma:
-            self._sigma = sigma
-        self._calc_beta()
-
-    def _calc_beta(self):
-        '''Calculate beta from R0 and gamma'''
-        self._beta = self._R0 * self._gamma
 
     def _St(self):
         '''dS/dt - Susceptible. At risk of contracting the disease'''
@@ -54,7 +40,7 @@ class SEIR_model:
         return self._gamma * self._I 
 
     def _next_value(self, prior, deriv, dt):
-        '''Eulers metod'''
+        '''Eulers metod for estimating the next value in the time series'''
         return prior + deriv * dt
     
     def update(self, dt):
@@ -85,17 +71,21 @@ class SEIR_model:
         '''Return current values of S, E, I and R as a list'''
         return [self._S, self._E, self._I, self._R]
     
-    def get_R0(self):
-        '''Return current value of R0'''
-        return self._R0
-    
     def get_beta(self):
         '''Return current value of beta'''
         return self._beta
 
+    def set_beta(self, beta):
+        '''Set new beta value'''
+        self._beta = beta
+
     def get_gamma(self):
         '''Return current value of gamma'''
         return self._gamma
+
+    def get_sigma(self):
+        '''Return current value of sigma'''
+        return self._sigma
 
     def get_time(self):
         '''Time elapsed since init'''

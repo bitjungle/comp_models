@@ -24,6 +24,7 @@ R0_start =  3.0      # basic reproduction number at simulation start
 R0 =  R0_start       # basic reproduction number
 gamma = 1 / 10       # 1 / duration of infectiousness
 sigma = 1/3.5 # the infection rate calculated by the inverse of the mean latent period
+beta = R0 * gamma
 
 # Significant dates and R0 changes -------------------------------------
 date_start = date(2020,2,24) # Monday after winter holiday in Norway
@@ -49,13 +50,14 @@ I[0] = I_start
 R = np.zeros(num_iter) # removed
 R[0] = R_start
 
-model = seir.SEIR_model(S[0], E[0], I[0], R[0], N, R0, gamma, sigma)
+model = seir.SEIR_model(S[0], E[0], I[0], R[0], beta, gamma, sigma, N)
 
 # Simulation -----------------------------------------------------------
 for i in range(1, num_iter):
     if use_gov_actions_1 and i == date_gov_actions_1_days: 
         print("Changing R0 to {} after {} days".format(R0_gov_action, i))
-        model.set_params(R0_gov_action)
+        beta = R0_gov_action * gamma
+        model.set_beta(beta)
     model.update(dt)
     S[i] = model.get_S()
     E[i] = model.get_E()
@@ -67,11 +69,12 @@ print("Susceptible: {:.0f} - Exposed: {:.0f} - Infectious: {:.0f} - Recovered: {
       .format(S[date_delta], E[date_delta], I[date_delta], R[date_delta]))
 
 plt.title("Spread of corona virus (SEIR model), $N={:5.0f}$ \n $\\beta={:5.2f}$ $\\gamma={:5.2f}$ $\\sigma={:5.2f}$ $R_0={:5.2f}\\rightarrow{:5.2f}$"
-          .format(N, model.get_beta(), gamma, sigma, R0_start, model.get_R0()))
+          .format(N, model.get_beta(), gamma, sigma, R0_start, R0_gov_action))
 plt.plot(S, label='Susceptible')
 plt.plot(E, label='Exposed')
 plt.plot(I, label='Infectious')
 plt.plot(R, label='Removed')
+plt.axvline(date_gov_actions_1_days, color='magenta', linestyle='--')
 plt.grid()
 plt.xlabel('Days')
 plt.ylabel('Number of people')

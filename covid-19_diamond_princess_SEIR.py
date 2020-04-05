@@ -2,8 +2,8 @@
 # This code is licensed under a GPLv3 license 
 # See http://www.gnu.org/licenses/gpl-3.0.html 
 
-import numpy as np 
 import math
+import numpy as np 
 import matplotlib.pyplot as plt
 import seir_model as seir
 
@@ -34,6 +34,7 @@ days = [i for i in range(0, len(diamond_princess))]
 R0 =  3.9 # basic reproduction number (max reported value from Wikipedia)
 gamma = 1 / 10 # 1 / duration of infectiousness (from fitted SIR model)
 sigma = 1/3.5 # infection rate, inverse of the mean latent period  (adjusted for data fitting)
+beta = R0 * gamma
 
 # Time horizon and time step -------------------------------------------
 t_max = 90 # Number of days for simulation
@@ -50,7 +51,7 @@ I[0] = I_start
 R = np.zeros(num_iter) # Recovered or dead
 R[0] = R_start
 
-model = seir.SEIR_model(S[0], E[0], I[0], R[0], N, R0, gamma, sigma)
+model = seir.SEIR_model(S[0], E[0], I[0], R[0], beta, gamma, sigma, N)
 
 cumul = np.zeros(num_iter) # cumulated number of illness cases
 cumul[0] = E_start + I_start

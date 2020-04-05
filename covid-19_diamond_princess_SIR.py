@@ -2,8 +2,8 @@
 # This code is licensed under a GPLv3 license 
 # See http://www.gnu.org/licenses/gpl-3.0.html 
 
-import numpy as np 
 import math
+import numpy as np 
 import matplotlib.pyplot as plt
 import sir_model as sir
 
@@ -31,6 +31,7 @@ I_start = 1 # Number of infected at start of simulation
 
 R0 =  3.9 # basic reproduction number (max reported value from Wikipedia)
 gamma = 1 / 10  # 1 / duration of infectiousness (adjusted for data fitting)
+beta = R0 * gamma
 
 # Time horizon and time step -------------------------------------------
 t_max = 90 # Number of days for simulation
@@ -45,7 +46,7 @@ I[0] = I_start
 R = np.zeros(num_iter) # Recovered or dead
 R[0] = 0
 
-model = sir.SIR_model(S[0], I[0], R[0], N, R0, gamma)
+model = sir.SIR_model(S[0], I[0], R[0], beta, gamma, N)
 
 cumul = np.zeros(num_iter) # cumulated number of illness cases
 cumul[0] = I_start
