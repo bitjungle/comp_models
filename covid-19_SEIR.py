@@ -17,6 +17,8 @@ from datetime import date
 # https://www.helsedirektoratet.no/tema/beredskap-og-krisehandtering/koronavirus/anbefalinger-og-beslutninger/Covid-19%20-%20kunnskap,%20situasjon,%20prognose,%20risiko%20og%20respons%20(FHI).pdf/_/attachment/inline/8e97af7b-d516-47dd-9616-2aabd76a8f63:35aa36ec9e7a53f9c3ddda3d5e030ac2884a0274/Covid-19%20-%20kunnskap,%20situasjon,%20prognose,%20risiko%20og%20respons%20(FHI).pdf
 # https://www.thelancet.com/journals/laninf/article/PIIS1473-3099(20)30243-7/fulltext
 
+lang = 'no' # Set to 'en' or 'no'
+
 # Constants and start parameters ---------------------------------------
 # Model parameters here are tuned for a small community in Norway
 N = 55000    # Total population
@@ -85,19 +87,28 @@ print("Final numbers:")
 print("Susceptible: {:.0f} - Exposed: {:.0f} - Infectious: {:.0f} - Recovered: {:.0f} - Fatalities {:.0f}"
       .format(S[-1], E[-1], I[-1], R[-1], F[-1]))
 
-plt_title = "Spread of corona virus (SEIR model), $N={:5.0f}$\nR0 ".format(N)
-for r in R0_gov_action:
-    plt_title += '→ ' + str(r)
+plt_title = {'en': "Spread of corona virus (SEIR model), $N={:5.0f}$\nR0 ".format(N), 
+             'no': "Spredning av koronavirus (SEIR model), $N={:5.0f}$\nR0 ".format(N)}
 
-plt.title(plt_title)
-plt.plot(S, label='Susceptible')
-plt.plot(E, label='Exposed')
-plt.plot(I, label='Infectious')
-plt.plot(R, label='Removed')
+for r in R0_gov_action:
+    plt_title[lang] += '→ ' + str(r)
+
+S_txt = {'en': 'Susceptible', 'no': 'Mottakelige'}
+E_txt = {'en': 'Exposed', 'no': 'Eksponerte'}
+I_txt = {'en': 'Infectious', 'no': 'Smittsomme'}
+R_txt = {'en': 'Removed', 'no': 'Immune'}
+plt_x_label = {'en': 'Days', 'no': 'Dager'}
+plt_y_label = {'en': 'Number of people', 'no': 'Antall mennesker'}
+
+plt.title(plt_title[lang])
+plt.plot(S, label=S_txt[lang])
+plt.plot(E, label=E_txt[lang])
+plt.plot(I, label=I_txt[lang])
+plt.plot(R, label=R_txt[lang])
 for d in date_gov_actions_days:
     plt.axvline(d, color='magenta', linestyle='--')
 plt.grid()
-plt.xlabel('Days')
-plt.ylabel('Number of people')
+plt.xlabel(plt_x_label)
+plt.ylabel(plt_y_label)
 plt.legend()
 plt.show()
