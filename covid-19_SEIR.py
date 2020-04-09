@@ -17,7 +17,7 @@ from datetime import date
 # https://www.helsedirektoratet.no/tema/beredskap-og-krisehandtering/koronavirus/anbefalinger-og-beslutninger/Covid-19%20-%20kunnskap,%20situasjon,%20prognose,%20risiko%20og%20respons%20(FHI).pdf/_/attachment/inline/8e97af7b-d516-47dd-9616-2aabd76a8f63:35aa36ec9e7a53f9c3ddda3d5e030ac2884a0274/Covid-19%20-%20kunnskap,%20situasjon,%20prognose,%20risiko%20og%20respons%20(FHI).pdf
 # https://www.thelancet.com/journals/laninf/article/PIIS1473-3099(20)30243-7/fulltext
 
-lang = 'no' # Set to 'en' or 'no'
+lang = 'en' # Set to 'en' or 'no'
 
 # Constants and start parameters ---------------------------------------
 # Model parameters here are tuned for a small community in Norway
