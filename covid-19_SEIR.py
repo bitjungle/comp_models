@@ -87,8 +87,8 @@ print("Final numbers:")
 print("Susceptible: {:.0f} - Exposed: {:.0f} - Infectious: {:.0f} - Recovered: {:.0f} - Fatalities {:.0f}"
       .format(S[-1], E[-1], I[-1], R[-1], F[-1]))
 
-plt_title = {'en': "Spread of corona virus (SEIR model), $N={:5.0f}$\nR0 ".format(N), 
-             'no': "Spredning av koronavirus (SEIR model), $N={:5.0f}$\nR0 ".format(N)}
+plt_title = {'en': "Spread of corona virus (SEIR model), $N={:5.0f}$\nR0: {:5.2f}".format(N, R0_start), 
+             'no': "Spredning av koronavirus (SEIR model), $N={:5.0f}$\nR0: {:5.2f}".format(N, R0_start)}
 
 for r in R0_gov_action:
     plt_title[lang] += '→ ' + str(r)
@@ -108,7 +108,7 @@ plt.plot(R, label=R_txt[lang])
 for d in date_gov_actions_days:
     plt.axvline(d, color='magenta', linestyle='--')
 plt.grid()
-plt.xlabel(plt_x_label)
-plt.ylabel(plt_y_label)
+plt.xlabel(plt_x_label[lang])
+plt.ylabel(plt_y_label[lang])
 plt.legend()
 plt.show()
