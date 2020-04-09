@@ -12,12 +12,15 @@ import sir_model as sir
 # https://www.ncbi.nlm.nih.gov/m/pubmed/32097725/
 # https://web.stanford.edu/~jhj1/teachingdocs/Jones-on-R0.pdf
 # https://www.fhi.no/contentassets/6555fa43c77e4d01b0d296abbc86bcad/notat-om-risiko-og-respons-2020-03-12.pdf
+# https://www.helsedirektoratet.no/tema/beredskap-og-krisehandtering/koronavirus/anbefalinger-og-beslutninger/Covid-19%20-%20kunnskap,%20situasjon,%20prognose,%20risiko%20og%20respons%20(FHI).pdf/_/attachment/inline/8e97af7b-d516-47dd-9616-2aabd76a8f63:35aa36ec9e7a53f9c3ddda3d5e030ac2884a0274/Covid-19%20-%20kunnskap,%20situasjon,%20prognose,%20risiko%20og%20respons%20(FHI).pdf
 # https://en.wikipedia.org/wiki/Basic_reproduction_number
 
 # Constants and start parameters ---------------------------------------
+# Model parameters here are tuned for a small community in Norway
+# A more rigid model is given in covid-19_SEIR.py
 N = 55000    # Total population
 I_start = 10 # Number of infected at simulation start
-R0 =  2.28 # basic reproduction number (from source)
+R0 =  2.54   # basic reproduction number (from source)
 gamma = 1 / 10 # 1 / duration of infectiousness
 beta = R0 * gamma
 
