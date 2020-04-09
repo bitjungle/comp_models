@@ -20,7 +20,6 @@ class SEIR_model:
         self._gamma = gamma
         self._sigma = sigma
         self._N = N
-        self._N = N
         self._time = 0
 
     def _St(self):
