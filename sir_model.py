@@ -39,7 +39,6 @@ class SIR_model:
 
     def update(self, dt):
         '''Update S, I and R using time step dt'''
-        print('S=', self._S)
         self._S = self._next(self._S, self._St(), dt)
         self._I = self._next(self._I, self._It(), dt)
         self._R = self._next(self._R, self._Rt(), dt)
