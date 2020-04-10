@@ -87,8 +87,13 @@ print("Final numbers:")
 print("Susceptible: {:.0f} - Exposed: {:.0f} - Infectious: {:.0f} - Recovered: {:.0f} - Fatalities {:.0f}"
       .format(S[-1], E[-1], I[-1], R[-1], F[-1]))
 
-plt_title = {'en': "Spread of corona virus (SEIR model), $N={:5.0f}$\nR0: {:5.2f}".format(N, R0_start), 
-             'no': "Spredning av koronavirus (SEIR model), $N={:5.0f}$\nR0: {:5.2f}".format(N, R0_start)}
+plt_title = {'en': "Spread of corona virus (SEIR model), $N={:5.0f}$, start date: {}\nR0: {:5.2f}".format(N, date_start, R0_start), 
+             'no': "Spredning av koronavirus (SEIR-modell), $N={:5.0f}$, startdato: {}\nR0: {:5.2f}".format(N, date_start, R0_start)}
+
+I_max = max(I)
+I_max_idx = np.where(I == I_max)[0][0]
+I_max_txt = {'en': 'Max infected at the same time: {:.0f}'.format(I_max), 
+             'no': 'Maks antall samtidig syke: {:.0f}'.format(I_max)}
 
 for r in R0_gov_action:
     plt_title[lang] += '→ ' + str(r)
@@ -105,10 +110,14 @@ plt.plot(S, label=S_txt[lang])
 plt.plot(E, label=E_txt[lang])
 plt.plot(I, label=I_txt[lang])
 plt.plot(R, label=R_txt[lang])
+plt.scatter(I_max_idx, I_max, marker='x')
+plt.text(I_max_idx, I_max+1000, I_max_txt[lang])
 for d in date_gov_actions_days:
     plt.axvline(d, color='magenta', linestyle='--')
 plt.grid()
 plt.xlabel(plt_x_label[lang])
 plt.ylabel(plt_y_label[lang])
+plt.xlim([0, t_max])
+plt.ylim([0, N])
 plt.legend()
 plt.show()
