@@ -69,7 +69,7 @@ R[0] = R_start
 F = np.zeros(num_iter) # fatalities
 F[0] = 0
 
-model = seir.SEIR_model(S[0], E[0], I[0], R[0], beta, gamma, sigma, N)
+model = seir.SEIR_model(S[0], E[0], I[0], R[0], beta, gamma, sigma)
 
 # Simulation -----------------------------------------------------------
 for i in range(1, num_iter):
@@ -95,8 +95,8 @@ print("Final numbers:")
 print("Susceptible: {:.0f} - Exposed: {:.0f} - Infectious: {:.0f} - Recovered: {:.0f} - Fatalities {:.0f}"
       .format(S[-1], E[-1], I[-1], R[-1], F[-1]))
 
-plt_title = {'en': "Spread of corona virus (SEIR model), $N={:5.0f}$, start date: {}".format(N, date_start), 
-             'no': "Spredning av koronavirus (SEIR-modell), $N={:5.0f}$, startdato: {}".format(N, date_start)}
+plt_title = {'en': "Spread of corona virus (SEIR model),\n $N={:5.0f}$, start date: {}".format(N, date_start), 
+             'no': "Spredning av koronavirus (SEIR-modell),\n $N={:5.0f}$, startdato: {}".format(N, date_start)}
 
 I_max = max(I)
 I_max_idx = np.where(I == I_max)[0][0]

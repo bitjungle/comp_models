@@ -12,13 +12,13 @@ class SIR_model:
     which are transmitted from human to human, and where recovery confers 
     lasting resistance, such as measles, mumps and rubella. 
     '''
-    def __init__(self, S_start, I_start, R_start, beta, gamma, N=1):
+    def __init__(self, S_start, I_start, R_start, beta, gamma):
         self.S = S_start
         self.I = I_start
         self.R = R_start
         self.beta = beta
         self.gamma = gamma
-        self.N = N
+        self.N = S_start + I_start + R_start
         self.time = 0
 
     def dSdt(self):

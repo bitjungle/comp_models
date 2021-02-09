@@ -37,14 +37,14 @@ I[0] = I_start
 R = np.zeros(num_iter) # removed
 R[0] = 0
 
-model = sir.SIR_model(S[0], I[0], R[0], beta, gamma, N)
+model = sir.SIR_model(S[0], I[0], R[0], beta, gamma)
 
 # Simulation -----------------------------------------------------------
 for i in range(1, num_iter):
     model.update(dt)
-    S[i] = model.get_S()
-    I[i] = model.get_I()
-    R[i] = model.get_R()
+    S[i] = model.S
+    I[i] = model.I
+    R[i] = model.R
 
 plt.title("SIR model, $N={:5.0f}$, $I_0={:5.0f}$\n  $\\beta={:5.2f}$ $\\gamma={:5.2f}$ $R_0={:5.2f}$"
         .format(N, I_start, beta, gamma, R0))

@@ -11,7 +11,7 @@ class SEIR_model:
     than characteristic times for demographic processes (natural birth 
     and death), and no differences in natural births and deaths.
     '''
-    def __init__(self, S_start, E_start, I_start, R_start, beta, gamma, sigma, N=1):
+    def __init__(self, S_start, E_start, I_start, R_start, beta, gamma, sigma):
         self.S = S_start
         self.E = E_start
         self.I = I_start
@@ -19,7 +19,7 @@ class SEIR_model:
         self.beta = beta
         self.gamma = gamma
         self.sigma = sigma
-        self.N = N
+        self.N = S_start + E_start + I_start + R_start
         self.time = 0
 
     def dSdt(self):

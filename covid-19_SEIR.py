@@ -42,7 +42,7 @@ I[0] = I_start
 R = np.zeros(num_iter) # removed
 R[0] = 0
 
-model = seir.SEIR_model(S[0], E[0], I[0], R[0], beta, gamma, sigma, N)
+model = seir.SEIR_model(S[0], E[0], I[0], R[0], beta, gamma, sigma)
 
 # Simulation -----------------------------------------------------------
 for i in range(1, num_iter):

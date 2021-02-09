@@ -47,7 +47,7 @@ I[0] = I_start
 R = np.zeros(num_iter) # Recovered or dead
 R[0] = 0
 
-model = sir.SIR_model(S[0], I[0], R[0], beta, gamma, N)
+model = sir.SIR_model(S[0], I[0], R[0], beta, gamma)
 
 cumul = np.zeros(num_iter) # cumulated number of illness cases
 cumul[0] = I_start
