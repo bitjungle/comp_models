@@ -21,27 +21,27 @@ class SIR_model:
         self.N = S_start + I_start + R_start
         self.time = 0
 
-    def dSdt(self):
+    def _dSdt(self):
         '''dS/dt - Susceptible. At risk of contracting the disease'''
         return -self.beta * self.I * self.S / self.N
 
-    def dIdt(self):
+    def _dIdt(self):
         '''dI/dt - Infectious. Capable of transmitting the disease'''
         return self.beta * self.I * self.S / self.N - self.gamma * self.I
 
-    def dRdt(self):
+    def _dRdt(self):
         '''dR/dt - Removed. Recovered or dead from the disease'''
         return self.gamma * self.I
 
-    def euler(self, prior, deriv, dt):
+    def _euler(self, prior, deriv, dt):
         '''Eulers metod for estimating the next value in the time series'''
         return prior + deriv * dt
 
     def update(self, dt):
         '''Update S, I and R using time step dt'''
-        self.S = self.euler(self.S, self.dSdt(), dt)
-        self.I = self.euler(self.I, self.dIdt(), dt)
-        self.R = self.euler(self.R, self.dRdt(), dt)
+        self.S = self._euler(self.S, self._dSdt(), dt)
+        self.I = self._euler(self.I, self._dIdt(), dt)
+        self.R = self._euler(self.R, self._dRdt(), dt)
         self.time += dt
 
     def get_SIR(self):
