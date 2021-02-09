@@ -12,83 +12,51 @@ class SEIR_model:
     and death), and no differences in natural births and deaths.
     '''
     def __init__(self, S_start, E_start, I_start, R_start, beta, gamma, sigma, N=1):
-        self._S = S_start
-        self._E = E_start
-        self._I = I_start
-        self._R = R_start
-        self._beta = beta
-        self._gamma = gamma
-        self._sigma = sigma
-        self._N = N
-        self._time = 0
+        self.S = S_start
+        self.E = E_start
+        self.I = I_start
+        self.R = R_start
+        self.beta = beta
+        self.gamma = gamma
+        self.sigma = sigma
+        self.N = N
+        self.time = 0
 
-    def _St(self):
+    def dSdt(self):
         '''dS/dt - Susceptible. At risk of contracting the disease'''
-        return -self._beta * self._S * self._I / self._N 
+        return -self.beta * self.S * self.I / self.N 
 
-    def _Et(self):
+    def dEdt(self):
         '''dE/dt - Exposed. Infected but not yet infectious'''
-        return (self._beta * self._S * self._I / self._N) - (self._sigma * self._E)
+        return (self.beta * self.S * self.I / self.N) - (self.sigma * self.E)
 
-    def _It(self):
+    def dIdt(self):
         '''dI/dt - Infectious. Capable of transmitting the disease'''
-        return (self._sigma * self._E) - (self._gamma * self._I)
+        return (self.sigma * self.E) - (self.gamma * self.I)
 
-    def _Rt(self):
+    def dRdt(self):
         '''dR/dt - Removed. Recovered or dead from the disease'''
-        return self._gamma * self._I 
+        return self.gamma * self.I 
 
-    def _next_value(self, prior, deriv, dt):
+    def euler(self, prior, deriv, dt):
         '''Eulers metod for estimating the next value in the time series'''
         return prior + deriv * dt
     
     def update(self, dt):
         '''Update S, E, I and R using time step dt'''
-        self._S = self._next_value(self._S, self._St(), dt)
-        self._E = self._next_value(self._E, self._Et(), dt)
-        self._I = self._next_value(self._I, self._It(), dt)
-        self._R = self._next_value(self._R, self._Rt(), dt)
-        self._time += dt
-    
-    def get_S(self):
-        '''Return current value of S (susceptible)'''
-        return self._S
-
-    def get_E(self):
-        '''Return current value of E (exposed)'''
-        return self._E
-
-    def get_I(self):
-        '''Return current value of I (infectious)'''
-        return self._I
-
-    def get_R(self):
-        '''Return current value of R (removed)'''
-        return self._R
+        self.S = self.euler(self.S, self.dSdt(), dt)
+        self.E = self.euler(self.E, self.dEdt(), dt)
+        self.I = self.euler(self.I, self.dIdt(), dt)
+        self.R = self.euler(self.R, self.dRdt(), dt)
+        self.time += dt
     
     def get_SIR(self):
         '''Return current values of S, E, I and R as a list'''
-        return [self._S, self._E, self._I, self._R]
-    
-    def get_beta(self):
+        return [self.S, self.E, self.I, self.R]
+
+    def get_R0(self):
         '''Return current value of beta'''
-        return self._beta
-
-    def set_beta(self, beta):
-        '''Set new beta value'''
-        self._beta = beta
-
-    def get_gamma(self):
-        '''Return current value of gamma'''
-        return self._gamma
-
-    def get_sigma(self):
-        '''Return current value of sigma'''
-        return self._sigma
-
-    def get_time(self):
-        '''Time elapsed since init'''
-        return self._time
+        return self.beta / self.gamma
 
 if __name__ == "__main__":
     pass

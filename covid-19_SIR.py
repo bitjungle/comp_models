@@ -18,14 +18,14 @@ import sir_model as sir
 # Constants and start parameters ---------------------------------------
 # Model parameters here are tuned for a small community in Norway
 # A more rigid model is given in covid-19_SEIR.py
-N = 55000    # Total population
-I_start = 10 # Number of infected at simulation start
-R0 =  2.54   # basic reproduction number (from source)
+N = 100    # Total population
+I_start = 2 # Number of infected at simulation start
+R0 =  2.50   # basic reproduction number (from source)
 gamma = 1 / 10 # 1 / duration of infectiousness
 beta = R0 * gamma
 
 # Time horizon and time step -------------------------------------------
-t_max = 200 # Number of days for simulation
+t_max = 100 # Number of days for simulation
 dt = 1      # Time step in days
 num_iter = math.ceil(t_max/dt) # Number of iterations
 
@@ -46,11 +46,11 @@ for i in range(1, num_iter):
     I[i] = model.get_I()
     R[i] = model.get_R()
 
-plt.title("Spread of corona virus, $N={:5.0f}$\n SIR model, $\\beta={:5.2f}$ $\\gamma={:5.2f}$ $R_0={:5.2f}$"
-        .format(N, beta, gamma, R0))
-plt.plot(S, label='Susceptible')
-plt.plot(I, label='Infectious')
-plt.plot(R, label='Removed')
+plt.title("SIR model, $N={:5.0f}$, $I_0={:5.0f}$\n  $\\beta={:5.2f}$ $\\gamma={:5.2f}$ $R_0={:5.2f}$"
+        .format(N, I_start, beta, gamma, R0))
+plt.plot(S, label='Susceptible', color='blue')
+plt.plot(I, label='Infectious', color='orange')
+plt.plot(R, label='Removed', color='green')
 plt.grid()
 plt.xlabel('Days')
 plt.ylabel('Number of people')

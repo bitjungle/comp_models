@@ -32,9 +32,9 @@ diamond_princess = (1, NaN, NaN,  NaN, NaN, NaN, NaN, NaN, NaN, NaN,
                     NaN, 285, 355, 454, 542, 621, 634)
 days = [i for i in range(0, len(diamond_princess))]
 
-R0 =  5.1 # basic reproduction number (from fitted SIR-model)
+R0 =  4.9 # basic reproduction number (adjusted for data fitting)
 gamma = 1 / 14 # 1 / duration of infectiousness
-sigma = 1/3.5 # infection rate, inverse of the mean latent period  (adjusted for data fitting)
+sigma = 1/3.0 # infection rate, inverse of the mean latent period  (estimate)
 beta = R0 * gamma
 
 # Time horizon and time step -------------------------------------------
@@ -60,13 +60,11 @@ cumul[0] = E_start + I_start
 # Simulering -----------------------------------------------------------
 for i in range(1, num_iter):
     model.update(dt)
-    S[i] = model.get_S()
-    E[i] = model.get_E()
-    I[i] = model.get_I()
-    R[i] = model.get_R()
+    S[i] = model.S
+    E[i] = model.E
+    I[i] = model.I
+    R[i] = model.R
     cumul[i] = E[i] + I[i] + R[i]
-
-beta = model.get_beta()
 
 plt.title("Spread of corona virus on Diamond Princess (SEIR model)\n" 
           + "$\\beta={:5.2f}$ $\\gamma={:5.2f}$  $\\sigma={:5.2f}$ $R_0={:5.2f}$"

@@ -30,7 +30,7 @@ days = [i for i in range(0, len(diamond_princess))]
 N = 3700    # Total population
 I_start = 1 # Number of infected at start of simulation
 
-R0 =  5.1 # basic reproduction number (used for data fitting)
+R0 =  5.2 # basic reproduction number (used for data fitting)
 gamma = 1 / 14  # 1 / duration of infectiousness
 beta = R0 * gamma
 
@@ -55,12 +55,10 @@ cumul[0] = I_start
 # Simulation -----------------------------------------------------------
 for i in range(1, num_iter):
     model.update(dt)
-    S[i] = model.get_S()
-    I[i] = model.get_I()
-    R[i] = model.get_R()
+    S[i] = model.S
+    I[i] = model.I
+    R[i] = model.R
     cumul[i] = I[i] + R[i]
-
-beta = model.get_beta()
 
 plt.title("Spread of corona virus on Diamond Princess \n"
         + "SIR model, $\\beta={:5.2f}$ $\\gamma={:5.2f}$ $R_0={:5.2f}$"
