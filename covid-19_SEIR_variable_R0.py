@@ -17,21 +17,22 @@ from datetime import date
 # https://www.helsedirektoratet.no/tema/beredskap-og-krisehandtering/koronavirus/anbefalinger-og-beslutninger/Covid-19%20-%20kunnskap,%20situasjon,%20prognose,%20risiko%20og%20respons%20(FHI).pdf/_/attachment/inline/8e97af7b-d516-47dd-9616-2aabd76a8f63:35aa36ec9e7a53f9c3ddda3d5e030ac2884a0274/Covid-19%20-%20kunnskap,%20situasjon,%20prognose,%20risiko%20og%20respons%20(FHI).pdf
 # https://www.thelancet.com/journals/laninf/article/PIIS1473-3099(20)30243-7/fulltext
 # https://www.fhi.no/sv/smittsomme-sykdommer/corona/koronavirus-modellering/
-# 
+# https://coronavirus.jhu.edu/data/mortality
 
 lang = 'en' # Set to 'en' or 'no'
 
 # Constants and start parameters ---------------------------------------
 # Model parameters here are tuned for a small community in Norway
-N = 100       # Total population
-I_start = 1.0 # Number of infectious at simulation start
+N = 55000       # Total population
+I_start = 10.0 # Number of infectious at simulation start
+I_threshold = 5 # Minimum number of infectious always present
 E_start = I_start # Number of infected at simulation start
 R_start = 0.0 # Number of removed at simulation start
 R0 = 3.08       # basic reproduction number at simulation start
 gamma = 1 / 10  # 1 / duration of infectiousness
 sigma = 1/2.5 # the infection rate calculated by the inverse of the mean latent period
 beta = R0 * gamma
-fr = 0.0138 # Fatality ratio 1,38 % 
+mr = 0.009 # Mortality ratio 0.9 % 
 
 # R0 changes (source: FHI) -------------------------------------
 date_start = date(2020, 2, 17)
@@ -59,7 +60,7 @@ num_iter = math.ceil(t_max/dt) # number of iterations in simulation
 
 # Initializing lists for storing calculations --------------------------
 S = np.zeros(num_iter) # susceptible
-S[0] = N - E_start - I_start
+S[0] = N - E_start - I_start - R_start
 E = np.zeros(num_iter) # exposed
 E[0] = E_start
 I = np.zeros(num_iter) # infectious
@@ -79,13 +80,13 @@ for i in range(1, num_iter):
     model.update(dt)
     S[i] = model.S
     E[i] = model.E
-    if (model.I < 1): # Always keep some infectous individuals
-        I[i] = model.I = 1.0
+    if (model.I < I_threshold): # Always keep some infectous individuals
+        I[i] = model.I = I_threshold
     else:
         I[i] = model.I
     I[i] = model.I
     R[i] = model.R
-    F[i] = R[i] * fr
+    F[i] = R[i] * mr
 
 print("Daily report for {}:".format(date_today))
 print("Susceptible: {:.0f} - Exposed: {:.0f} - Infectious: {:.0f} - Recovered: {:.0f} - Fatalities {:.0f}"
