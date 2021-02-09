@@ -49,7 +49,7 @@ class SIR_model:
         return [self.S, self.I, self.R]
 
     def get_R0(self):
-        '''Return current value of beta'''
+        '''Return current value of the reproduction number R0'''
         return self.beta / self.gamma
 
 if __name__ == "__main__":

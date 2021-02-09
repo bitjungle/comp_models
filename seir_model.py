@@ -50,12 +50,12 @@ class SEIR_model:
         self.R = self.euler(self.R, self.dRdt(), dt)
         self.time += dt
     
-    def get_SIR(self):
+    def get_SEIR(self):
         '''Return current values of S, E, I and R as a list'''
         return [self.S, self.E, self.I, self.R]
 
     def get_R0(self):
-        '''Return current value of beta'''
+        '''Return current value of the reproduction number R0'''
         return self.beta / self.gamma
 
 if __name__ == "__main__":
