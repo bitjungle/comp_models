@@ -3,7 +3,7 @@ import unittest
 
 class TestSEIR(unittest.TestCase):
 
-    def test_can_construct(self):
+    def test_can_construct(self) -> None:
         S_0 = 90
         E_0 = 5
         I_0 = 5
@@ -17,7 +17,7 @@ class TestSEIR(unittest.TestCase):
         self.assertAlmostEqual(model.I, I_0)
         self.assertAlmostEqual(model.R, R_0)
 
-    def test_update_gives_expected_trends(self):
+    def test_update_gives_expected_trends(self) -> None:
         S_0 = 90
         E_0 = 5
         I_0 = 5
@@ -36,5 +36,5 @@ class TestSEIR(unittest.TestCase):
             model.update(dt)
             
             self.assertLessEqual(model.S, S_old)
-            self.assertAlmostEqual(N/100, (model.S + model.E + model.I + model.R)/100, places=1)
+            self.assertAlmostEqual(N/100, (model.S + model.E + model.I + model.R)/100, places=0)
             self.assertGreaterEqual(model.R, R_old)

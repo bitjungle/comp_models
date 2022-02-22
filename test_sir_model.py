@@ -2,8 +2,8 @@ from sir_model import SIR_model
 import unittest 
 
 class TestSIR(unittest.TestCase):
-
-    def test_can_construct(self):
+    
+    def test_can_construct(self) -> None:
         S_0 = 95
         I_0 = 5
         R_0 = 0
@@ -15,10 +15,11 @@ class TestSIR(unittest.TestCase):
         self.assertAlmostEqual(model.I, I_0)
         self.assertAlmostEqual(model.R, R_0)
 
-    def test_update_gives_expected_trends(self):
+    def test_update_gives_expected_trends(self) -> None:
         S_0 = 95
         I_0 = 5
         R_0 = 0
+        N = S_0 + I_0 + R_0
         gamma = 1/14
         beta = 1/3
         dt = 1
@@ -30,7 +31,5 @@ class TestSIR(unittest.TestCase):
             model.update(dt)
 
             self.assertLessEqual(model.S, S_old)
-            self.assertAlmostEqual(model.I / 100, 
-                                   (I_old + (S_old - model.S) - (model.R - R_old))/100, 
-                                   places=1)
+            self.assertAlmostEqual(N/100, (model.S + model.I + model.R)/100, places=0)
             self.assertGreaterEqual(model.R, R_old)
