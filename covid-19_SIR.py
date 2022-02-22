@@ -5,7 +5,7 @@
 import math
 import numpy as np 
 import matplotlib.pyplot as plt
-import sir_model as sir
+from sir_model import SIR_model
 
 # Useful resources -----------------------------------------------------
 # https://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology
@@ -41,7 +41,7 @@ R[0] = R_start
 F = np.zeros(num_iter) # fatalities
 F[0] = 0
 
-model = sir.SIR_model(S[0], I[0], R[0], beta, gamma)
+model = SIR_model(S[0], I[0], R[0], beta, gamma)
 
 # Simulation -----------------------------------------------------------
 for i in range(1, num_iter):

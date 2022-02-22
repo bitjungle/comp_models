@@ -5,7 +5,7 @@
 import math
 import numpy as np 
 import matplotlib.pyplot as plt
-import sir_model as sir
+from sir_model import SIR_model
 
 NaN = float('nan') # Not a Number (used where no data is available)
 
@@ -47,7 +47,7 @@ I[0] = I_start
 R = np.zeros(num_iter) # Recovered or dead
 R[0] = 0
 
-model = sir.SIR_model(S[0], I[0], R[0], beta, gamma)
+model = SIR_model(S[0], I[0], R[0], beta, gamma)
 
 cumul = np.zeros(num_iter) # cumulated number of illness cases
 cumul[0] = I_start

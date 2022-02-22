@@ -60,10 +60,10 @@ cumul[0] = E_start + I_start
 # Simulering -----------------------------------------------------------
 for i in range(1, num_iter):
     model.update(dt)
-    S[i] = model.S
-    E[i] = model.E
-    I[i] = model.I
-    R[i] = model.R
+    S[i] = model._S
+    E[i] = model._E
+    I[i] = model._I
+    R[i] = model._R
     cumul[i] = E[i] + I[i] + R[i]
 
 plt.title("Spread of corona virus on Diamond Princess (SEIR model)\n" 

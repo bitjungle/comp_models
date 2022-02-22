@@ -70,27 +70,23 @@ R[0] = R_start
 F = np.zeros(num_iter) # fatalities
 F[0] = 0
 
-model = seir.SEIR_model(S[0], E[0], I[0], R[0], beta, gamma, sigma)
+model = seir.SEIR_model(S[0], E[0], I[0], R[0], beta, gamma, sigma, I_threshold)
 
 # Simulation -----------------------------------------------------------
 for i in range(1, num_iter):
     if i in Rvals: # Do we have a new R0 value?
-        model.beta = Rvals[i]* gamma
+        model.beta = Rvals[i]*gamma
         print("Changing R0 to {} after {} days".format(Rvals[i], i))
     model.update(dt)
     S[i] = model.S
     E[i] = model.E
-    if (model.I < I_threshold): # Always keep some infectous individuals
-        I[i] = model.I = I_threshold
-    else:
-        I[i] = model.I
     I[i] = model.I
     R[i] = model.R
     F[i] = R[i] * mr
 
-print("Daily report for {}:".format(date_today))
-print("Susceptible: {:.0f} - Exposed: {:.0f} - Infectious: {:.0f} - Recovered: {:.0f} - Fatalities {:.0f}"
-      .format(S[date_delta], E[date_delta], I[date_delta], R[date_delta], F[date_delta]))
+#print("Daily report for {}:".format(date_today))
+#print("Susceptible: {:.0f} - Exposed: {:.0f} - Infectious: {:.0f} - Recovered: {:.0f} - Fatalities {:.0f}"
+#      .format(S[date_delta], E[date_delta], I[date_delta], R[date_delta], F[date_delta]))
 
 print("Final numbers:")
 print("Susceptible: {:.0f} - Exposed: {:.0f} - Infectious: {:.0f} - Recovered: {:.0f} - Fatalities {:.0f}"
