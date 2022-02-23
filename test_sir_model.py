@@ -33,9 +33,11 @@ class TestSIR(unittest.TestCase):
         pass
     
     def test_can_construct(self) -> None:
-        self.assertAlmostEqual(self.model.S, self.S_0)
-        self.assertAlmostEqual(self.model.I, self.I_0)
-        self.assertAlmostEqual(self.model.R, self.R_0)
+        self.assertEqual(self.model.S, self.S_0)
+        self.assertEqual(self.model.I, self.I_0)
+        self.assertEqual(self.model.R, self.R_0)
+        self.assertEqual(self.model.gamma, self.gamma)
+        self.assertEqual(self.model.beta, self.beta)
 
     def test_update_gives_expected_trends(self) -> None:
         for i in range(1, 25):

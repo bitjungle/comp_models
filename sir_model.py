@@ -93,17 +93,17 @@ class SIR_model:
         return self._beta
 
     @beta.setter
-    def beta(self, beta) -> None:
+    def beta(self, beta: float) -> None:
         '''Set new beta value'''
         self._beta = beta
     
     @property
     def gamma(self) -> float:
         '''Return current value of gamma'''
-        return self._beta
+        return self._gamma
 
     @gamma.setter
-    def gamma(self, gamma) -> None:
+    def gamma(self, gamma: float) -> None:
         '''Set new gamma value'''
         self._gamma = gamma
 
