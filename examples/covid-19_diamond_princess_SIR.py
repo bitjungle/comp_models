@@ -5,7 +5,7 @@
 import math
 import numpy as np 
 import matplotlib.pyplot as plt
-from sir_model import SIR_model
+from comp_models import SIR_model
 
 NaN = float('nan') # Not a Number (used where no data is available)
 

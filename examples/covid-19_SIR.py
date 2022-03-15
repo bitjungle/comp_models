@@ -5,7 +5,7 @@
 import math
 import numpy as np 
 import matplotlib.pyplot as plt
-from sir_model import SIR_model
+from comp_models.sir_model import SIR_model
 
 # Useful resources -----------------------------------------------------
 # https://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology

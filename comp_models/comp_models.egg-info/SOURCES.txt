@@ -1,0 +1,7 @@
+LICENSE
+README.md
+setup.py
+comp_models/comp_models.egg-info/PKG-INFO
+comp_models/comp_models.egg-info/SOURCES.txt
+comp_models/comp_models.egg-info/dependency_links.txt
+comp_models/comp_models.egg-info/top_level.txt
