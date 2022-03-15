@@ -1,4 +1,4 @@
-# COVID-19 Modelling
+# Compartmental models in epidemiology
 
 ## Data analysis and models for predicting SARS-CoV-2 virus and COVID-19 disease spread 
 
