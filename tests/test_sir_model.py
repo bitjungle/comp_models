@@ -1,6 +1,5 @@
-from tkinter import mainloop
-from sir_model import SIR_model
 import unittest 
+from comp_models import SIR_model
 
 class TestSIR(unittest.TestCase):
     '''Unit tests for the SIR model class'''

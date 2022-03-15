@@ -3,9 +3,9 @@
 # See http://www.gnu.org/licenses/gpl-3.0.html 
 
 import math
-import numpy as np 
+import numpy as np
 import matplotlib.pyplot as plt
-import seir_model as seir
+import comp_models.seir_model as seir
 
 # Useful resources -----------------------------------------------------
 # https://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology

@@ -2,10 +2,10 @@
 # This code is licensed under a GPLv3 license 
 # See http://www.gnu.org/licenses/gpl-3.0.html 
 
-import numpy as np 
 import math
+import numpy as np 
 import matplotlib.pyplot as plt
-import seir_model as seir
+import comp_models.seir_model as seir
 from datetime import date
 
 # Useful resources -----------------------------------------------------

@@ -5,7 +5,7 @@
 import math
 import numpy as np 
 import matplotlib.pyplot as plt
-import seir_model as seir
+from comp_models import SEIR_model
 
 NaN = float('nan') # Not a Number (used where no data is available)
 
@@ -52,7 +52,7 @@ I[0] = I_start
 R = np.zeros(num_iter) # Recovered or dead
 R[0] = R_start
 
-model = seir.SEIR_model(S[0], E[0], I[0], R[0], beta, gamma, sigma)
+model = SEIR_model(S[0], E[0], I[0], R[0], beta, gamma, sigma)
 
 cumul = np.zeros(num_iter) # cumulated number of illness cases
 cumul[0] = E_start + I_start

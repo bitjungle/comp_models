@@ -1,5 +1,5 @@
-from seir_model import SEIR_model
 import unittest 
+from comp_models import SEIR_model
 
 class TestSEIR(unittest.TestCase):
     '''Unit tests for the SEIR model class'''
