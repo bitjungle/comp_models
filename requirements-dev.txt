@@ -1,5 +1,4 @@
 astroid==2.9.3
--e git+https://github.com/bitjungle/covid-19.git@d2b99a5de41bc067a82f6ce7ebc5ff18f4e615ab#egg=comp_models
 cycler==0.11.0
 fonttools==4.30.0
 isort==5.10.1
