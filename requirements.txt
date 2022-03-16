@@ -1,9 +1,0 @@
-astroid==2.9.3
--e git+https://github.com/bitjungle/comp.models.git@d2b99a5de41bc067a82f6ce7ebc5ff18f4e615ab#egg=comp_models
-isort==5.10.1
-lazy-object-proxy==1.7.1
-mccabe==0.6.1
-platformdirs==2.5.1
-toml==0.10.2
-typing_extensions==4.1.1
-wrapt==1.13.3
