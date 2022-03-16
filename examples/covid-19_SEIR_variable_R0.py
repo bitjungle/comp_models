@@ -24,37 +24,51 @@ lang = 'en' # Set to 'en' or 'no'
 # Constants and start parameters ---------------------------------------
 # Model parameters here are tuned for a small community in Norway
 N = 55000       # Total population
-I_start = 10.0 # Number of infectious at simulation start
-I_threshold = 5 # Minimum number of infectious always present
+I_start = 20 # Number of infectious at simulation start
+I_threshold = 10 # Minimum number of infectious always present
 E_start = I_start # Number of infected at simulation start
 R_start = 0.0 # Number of removed at simulation start
-R0 = 3.08       # basic reproduction number at simulation start
+R0 = 3.03       # basic reproduction number at simulation start
 gamma = 1 / 10  # 1 / duration of infectiousness
 sigma = 1/2.5 # the infection rate calculated by the inverse of the mean latent period
 beta = R0 * gamma
-mr = 0.009 # Mortality ratio 0.9 % 
+mr = 0.007 # Mortality ratio 0.7 % 
 
 # R0 changes (source: FHI) -------------------------------------
 date_start = date(2020, 2, 17)
-date_today = date.today()
-date_delta = (date_today - date_start).days
+#date_end = date.today()
+date_end = date(2022, 3, 16)
+date_delta = (date_end - date_start).days
 Rvals = {
     0: R0, # R0 for 2020-02-17
-    (date(2020, 3, 15) - date_start).days: 0.53,
-    (date(2020, 4, 20) - date_start).days: 0.56,
-    (date(2020, 5, 11) - date_start).days: 0.59,
-    (date(2020, 7, 1) - date_start).days: 0.72,
-    (date(2020, 8, 1) - date_start).days: 1.03,
-    (date(2020, 9, 1) - date_start).days: 0.97,
-    (date(2020, 10, 1) - date_start).days: 1.23,
-    (date(2020, 10, 26) - date_start).days: 1.47,
-    (date(2020, 11, 5) - date_start).days: 0.83,
-    (date(2020, 12, 1) - date_start).days: 1.07,
-    (date(2021, 1, 4) - date_start).days: 0.65
+    (date(2020, 3, 15) - date_start).days: 0.72,
+    (date(2020, 4, 20) - date_start).days: 0.51,
+    (date(2020, 5, 11) - date_start).days: 0.54,
+    (date(2020, 7, 1) - date_start).days: 0.9,
+    (date(2020, 8, 1) - date_start).days: 1.16,
+    (date(2020, 9, 1) - date_start).days: 1.0,
+    (date(2020, 10, 1) - date_start).days: 1.07,
+    (date(2020, 10, 26) - date_start).days: 1.14,
+    (date(2020, 11, 5) - date_start).days: 1.01,
+    (date(2020, 12, 1) - date_start).days: 0.86,
+    (date(2021, 1, 4) - date_start).days: 0.81,
+    (date(2021, 1, 22) - date_start).days: 0.92,
+    (date(2021, 2, 8) - date_start).days: 1.29,
+    (date(2021, 3, 2) - date_start).days: 1.01,
+    (date(2021, 3, 25) - date_start).days: 0.9,
+    (date(2021, 4, 13) - date_start).days: 0.79,
+    (date(2021, 5, 6) - date_start).days: 0.89,
+    (date(2021, 5, 27) - date_start).days: 0.79,
+    (date(2021, 6, 21) - date_start).days: 0.99,
+    (date(2021, 8, 5) - date_start).days: 1.06,
+    (date(2021, 9, 1) - date_start).days: 0.83,
+    (date(2021, 9, 25) - date_start).days: 1.03,
+    (date(2021, 12, 13) - date_start).days: 1.17,
+    (date(2022, 2, 14) - date_start).days: 1.15
 }
 
 # Time horizon and time step -------------------------------------------
-t_max = 365 # number of days to simulate
+t_max = (date_end - date_start).days # number of days to simulate
 dt = 1      # time step in days
 num_iter = math.ceil(t_max/dt) # number of iterations in simulation
 
@@ -84,10 +98,6 @@ for i in range(1, num_iter):
     R[i] = model.R
     F[i] = R[i] * mr
 
-#print("Daily report for {}:".format(date_today))
-#print("Susceptible: {:.0f} - Exposed: {:.0f} - Infectious: {:.0f} - Recovered: {:.0f} - Fatalities {:.0f}"
-#      .format(S[date_delta], E[date_delta], I[date_delta], R[date_delta], F[date_delta]))
-
 print("Final numbers:")
 print("Susceptible: {:.0f} - Exposed: {:.0f} - Infectious: {:.0f} - Recovered: {:.0f} - Fatalities {:.0f}"
       .format(S[-1], E[-1], I[-1], R[-1], F[-1]))
@@ -99,9 +109,6 @@ I_max = max(I)
 I_max_idx = np.where(I == I_max)[0][0]
 I_max_txt = {'en': 'Max infected at the same time: {:.0f}'.format(I_max), 
              'no': 'Maks antall samtidig syke: {:.0f}'.format(I_max)}
-
-#for r in R0_gov_action:
-#    plt_title[lang] += '→ ' + str(r)
 
 S_txt = {'en': 'Susceptible', 'no': 'Mottakelige'}
 E_txt = {'en': 'Exposed', 'no': 'Eksponerte'}
@@ -117,8 +124,8 @@ plt.plot(I, label=I_txt[lang])
 plt.plot(R, label=R_txt[lang])
 plt.scatter(I_max_idx, I_max, marker='x')
 plt.text(I_max_idx, I_max+1000, I_max_txt[lang])
-#for d in date_gov_actions_days:
-#    plt.axvline(d, color='magenta', linestyle='--')
+for key, val in Rvals.items():
+    plt.axvline(key, color='silver', linestyle='--')
 plt.grid()
 plt.xlabel(plt_x_label[lang])
 plt.ylabel(plt_y_label[lang])
