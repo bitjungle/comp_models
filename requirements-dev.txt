@@ -1,4 +1,0 @@
-matplotlib==3.5.1
-numpy==1.22.3
-pylint==2.12.2
-pytest==7.1.0

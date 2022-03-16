@@ -11,8 +11,7 @@ git clone https://github.com/bitjungle/comp_models.git
 cd comp_models
 python3 -m venv venv
 source ./venv/bin/activate
-pip install -e .
-pip install -r requirements-dev.txt
+pip install -e ".[dev]"
 ```
 
 Try running one of the examples, e.g:
